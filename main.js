@@ -22,10 +22,23 @@ function drawCircle(x, y, r, fill) {
 // draw board
 drawCircle(radius + padding, radius + padding, radius - (2 * padding));
 
+const pegs = [];
+
 // draw pegs
 for (var i = 0; i < numPegs; i++) {
     var pegAngle = i * ((2 * Math.PI) / numPegs);
     var pegX = radius + padding + (radius - 2*padding) * Math.cos(pegAngle);
     var pegY = radius + padding + (radius - 2 * padding) * Math.sin(pegAngle);
     drawCircle(pegX, pegY, pegSize, true)
+    pegs.push([pegX, pegY]);
+}
+
+for (let i = 0; i < numPegs; i++) {
+    const peg = pegs[i];
+    const nextPeg = pegs[(i + numPegs / 2) % numPegs]
+    ctx.beginPath();
+    ctx.strokeStyle = '#FF0000';
+    ctx.lineTo(peg[0], peg[1]);
+    ctx.lineTo(nextPeg[0], nextPeg[1]);
+    ctx.stroke();
 }
