@@ -1,6 +1,6 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const numPegs = 10;
+const numPegs = 20;
 const pegSize = 5;
 const boardSize = 400;
 const radius = boardSize / 2;
@@ -41,8 +41,13 @@ for (var i = 0; i < numPegs; i++) {
     pegs.push([pegX, pegY]);
 }
 
-for (let i = 0; i < numPegs; i++) {
-    const peg = pegs[i];
-    const nextPeg = pegs[(i + numPegs / 2) % numPegs]
-    drawThread(peg, nextPeg);
+let lastIndex = 0;
+
+function randomDraw() {
+    const nextIndex = Math.floor(Math.random() * numPegs);
+    drawThread(pegs[lastIndex], pegs[nextIndex]);
+    lastIndex = nextIndex;
+    window.setTimeout(randomDraw, 100);
 }
+
+randomDraw();
