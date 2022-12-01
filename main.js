@@ -19,6 +19,14 @@ function drawCircle(x, y, r, fill) {
     ctx.stroke();
 }
 
+function drawThread(fromPeg, toPeg) {
+    ctx.beginPath();
+    ctx.strokeStyle = '#FF0000';
+    ctx.lineTo(fromPeg[0], fromPeg[1]);
+    ctx.lineTo(toPeg[0], toPeg[1]);
+    ctx.stroke();
+}
+
 // draw board
 drawCircle(radius + padding, radius + padding, radius - (2 * padding));
 
@@ -36,9 +44,5 @@ for (var i = 0; i < numPegs; i++) {
 for (let i = 0; i < numPegs; i++) {
     const peg = pegs[i];
     const nextPeg = pegs[(i + numPegs / 2) % numPegs]
-    ctx.beginPath();
-    ctx.strokeStyle = '#FF0000';
-    ctx.lineTo(peg[0], peg[1]);
-    ctx.lineTo(nextPeg[0], nextPeg[1]);
-    ctx.stroke();
+    drawThread(peg, nextPeg);
 }
